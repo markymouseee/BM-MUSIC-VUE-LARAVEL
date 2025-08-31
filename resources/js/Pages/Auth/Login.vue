@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import Logo from '@/assets/images/BM-logo.png'
 import { Head, Link } from '@inertiajs/vue3'
 import InputField from '@/Components/InputField.vue'
-import bg from '@/assets/svgs/Background.svg'
 
 const username = ref('')
 const password = ref('')
