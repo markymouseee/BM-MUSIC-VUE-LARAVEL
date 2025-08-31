@@ -1,11 +1,11 @@
 <script setup>
 import GuestLayout from '@/Layouts/GuestLayout.vue'
 import { Head, Link, router } from '@inertiajs/vue3'
-import Logo from '@/Images/BM-logo.png'
+import Logo from '@/assets/images/BM-logo.png'
 import { ref, onMounted, onBeforeUnmount } from "vue"
 
 const goToLogin = () => {
-   router.visit('/login')
+    router.visit('/login')
 }
 
 const activeLink = ref("home")
@@ -38,6 +38,7 @@ onMounted(() => {
 
 <template>
     <GuestLayout>
+
         <Head title="BM Music" />
         <nav
             class="bg-white/80 backdrop-blur-md border-gray-200 dark:bg-gray-900/80 fixed w-full top-0 left-0 z-50 shadow-sm transition-colors">

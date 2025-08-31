@@ -1,11 +1,16 @@
+<script setup>
+    import { ref } from 'vue'
+
+    const year = ref(new Date().getFullYear())
+</script>
 <template>
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <main class="max-w-full mx-auto px-1 lg:px-0 sm:px-2">
             <slot />
-        </div>
+        </main>
         <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 py-6">
             <div class="max-w-screen-xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-600 dark:text-gray-400">&copy; 2025 BM Music. All rights reserved.</p>
+                <p class="text-gray-600 dark:text-gray-400">&copy; {{ year }} BM Music. All rights reserved.</p>
                 <div class="flex space-x-4 mt-4 md:mt-0">
 
                     <a href="https://github.com/markymouseee/BM-MUSIC-VUE-LARAVEL" target="_blank"
@@ -55,6 +60,4 @@
             </div>
         </footer>
     </div>
-
-
 </template>
