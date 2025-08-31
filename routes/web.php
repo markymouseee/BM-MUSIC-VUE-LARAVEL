@@ -8,5 +8,5 @@ Route::get('/', function () {
     return Inertia::render('Index');
 });
 
-Route::get('/login', [LoginController::class, 'index'])
+Route::get('/sign-in', [LoginController::class, 'index'])
     ->name('user.login');

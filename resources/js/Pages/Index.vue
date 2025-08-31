@@ -5,7 +5,7 @@ import Logo from '@/assets/images/BM-logo.png'
 import { ref, onMounted, onBeforeUnmount } from "vue"
 
 const goToLogin = () => {
-    router.visit('/login')
+    router.visit('/sign-in')
 }
 
 const activeLink = ref("home")
