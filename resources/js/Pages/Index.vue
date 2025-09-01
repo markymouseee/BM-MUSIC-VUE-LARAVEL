@@ -5,7 +5,7 @@ import Logo from '@/assets/images/BM-logo.png'
 import { ref, onMounted, onBeforeUnmount } from "vue"
 
 const goToLogin = () => {
-    router.visit('/sign-in')
+    router.visit('/sign-up')
 }
 
 const activeLink = ref("home")
@@ -55,7 +55,7 @@ onMounted(() => {
 
                 <div class="flex md:order-2 space-x-3">
                     <button @click="goToLogin"
-                        class="text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 transition-all">
+                        class="text-white cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 transition-all">
                         Get started
                     </button>
 
@@ -160,11 +160,11 @@ onMounted(() => {
 
                 <div class="flex justify-center gap-4 animate-fade-in delay-400">
                     <button @click="goToLogin"
-                        class="px-8 py-3 rounded-2xl bg-white text-blue-700 font-semibold hover:scale-105 hover:shadow-2xl transition-all duration-300 ease-out">
+                        class="px-8 py-3 cursor-pointer rounded-2xl bg-white text-blue-700 font-semibold hover:scale-105 hover:shadow-2xl transition-all duration-300 ease-out">
                         Get Started
                     </button>
                     <a href="#about"
-                        class="px-8 py-3 rounded-2xl border border-white/40 bg-white/10 text-white font-semibold backdrop-blur hover:bg-white/20 hover:scale-105 transition-all duration-300 ease-out">
+                        class="px-8 py-3 cursor-pointer rounded-2xl border border-white/40 bg-white/10 text-white font-semibold backdrop-blur hover:bg-white/20 hover:scale-105 transition-all duration-300 ease-out">
                         Learn More
                     </a>
                 </div>

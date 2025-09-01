@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import Logo from '@/assets/images/BM-logo.png'
-import { Head, Link } from '@inertiajs/vue3'
+import { Head, Link, router } from '@inertiajs/vue3'
 import InputField from '@/Components/InputField.vue'
 import PrimaryButton from '@/Components/PrimaryButton.vue'
 import SecondaryButton from '@/Components/SecondaryButton.vue'
@@ -13,6 +13,10 @@ const loading = ref(false)
 
 function toggleShow() {
     showPassword.value = !showPassword.value
+}
+
+const goToSignUp = () => {
+    return router.visit('/sign-up')
 }
 
 async function submit() {
@@ -132,6 +136,7 @@ async function submit() {
                                 Developed by: Mark
                             </li>
                         </a>
+                        
                         <li class="flex items-center gap-3">
                             <span class="inline-flex items-center justify-center w-7 h-7 bg-white/20 rounded-full">
                                 <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -141,13 +146,14 @@ async function submit() {
                             </span>
                             Built with Spotify API
                         </li>
+
                     </ul>
                 </div>
             </div>
 
             <div class="p-8 sm:p-10">
 
-                <Head title="Login - BM Music" />
+                <Head title="Sign in - BM Music" />
 
                 <div class="mb-6">
                     <h3 class="text-2xl font-semibold text-gray-900 dark:text-gray-100">Welcome back</h3>
@@ -158,7 +164,7 @@ async function submit() {
 
                 <form @submit.prevent="submit" class="space-y-5">
                     <div>
-                        <label for="password"
+                        <label for="username"
                             class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Username or
                             email</label>
                         <InputField id="username" type="text" label="Username"
@@ -215,7 +221,7 @@ async function submit() {
 
                 <div class="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
                     Don’t have an account?
-                    <a href="#" class="text-blue-600 hover:underline dark:text-blue-600">Create one</a>
+                    <Link @click="goToSignUp" class="text-blue-600 hover:underline dark:text-blue-600">Create one</Link>
                 </div>
             </div>
         </div>
