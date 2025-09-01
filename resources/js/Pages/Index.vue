@@ -4,8 +4,12 @@ import { Head, Link, router } from '@inertiajs/vue3'
 import Logo from '@/assets/images/BM-logo.png'
 import { ref, onMounted, onBeforeUnmount } from "vue"
 
-const goToLogin = () => {
+const goToSignUp = () => {
     router.visit('/sign-up')
+}
+
+const goToSignIn = () => {
+    router.visit('/sign-in')
 }
 
 const activeLink = ref("home")
@@ -54,7 +58,12 @@ onMounted(() => {
                 </Link>
 
                 <div class="flex md:order-2 space-x-3">
-                    <button @click="goToLogin"
+                    <button @click="goToSignIn"
+                        class="text-gray-700 font-medium hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hidden md:inline-block">
+                    Sign in
+                    </button>
+
+                    <button @click="goToSignUp"
                         class="text-white cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 transition-all">
                         Get started
                     </button>
@@ -130,6 +139,17 @@ onMounted(() => {
                                 ]"></span>
                             </a>
                         </li>
+
+                        <li class="flex md:hidden">
+                            <Link href="/" @click="setActive('sign-in')" :class="[
+                                'relative block px-4 py-2 font-medium transition-colors duration-300',
+                                activeLink === 'sign-in'
+                                    ? 'text-blue-600 dark:text-blue-400'
+                                    : 'text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400'
+                            ]">
+                            Sign in
+                            </Link>
+                        </li>
                     </ul>
 
                 </div>
@@ -159,7 +179,7 @@ onMounted(() => {
                 </p>
 
                 <div class="flex justify-center gap-4 animate-fade-in delay-400">
-                    <button @click="goToLogin"
+                    <button @click="goToSignUp"
                         class="px-8 py-3 cursor-pointer rounded-2xl bg-white text-blue-700 font-semibold hover:scale-105 hover:shadow-2xl transition-all duration-300 ease-out">
                         Get Started
                     </button>
