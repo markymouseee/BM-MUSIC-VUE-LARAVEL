@@ -13,6 +13,8 @@ const model = ref({
 });
 
 const goToSignIn = () => router.visit('/sign-in');
+
+
 </script>
 
 <template>
@@ -107,6 +109,7 @@ const goToSignIn = () => router.visit('/sign-in');
             <div class="p-8 sm:p-12">
 
                 <Head title="Sign up - BM Music" />
+
 
                 <div class="mb-8">
                     <h3
