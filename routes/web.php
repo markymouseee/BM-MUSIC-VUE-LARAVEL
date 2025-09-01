@@ -9,10 +9,14 @@ Route::get('/', function () {
     return Inertia::render('Index');
 });
 
-Route::get('/sign-in', [LoginController::class, 'index'])
-    ->name('user.login')
-    ->middleware('guest');
+Route::middleware('guest')->group(function () {
+    Route::get('/sign-in', [AuthenticatedSessionController::class, 'create'])
+        ->name('user.login');
 
-Route::get('/sign-up', [UserController::class, 'index'])
-    ->name('user.register')
-    ->middleware('guest');
+    Route::get('/sign-up', [UserController::class, 'create'])
+        ->name('user.register');
+
+
+    Route::post('/sign-in', [AuthenticatedSessionController::class, 'store'])
+        ->name('user.login.store');
+});

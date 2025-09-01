@@ -9,10 +9,10 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    public function index() 
+    public function create(Request $request)
     {
-        if(!Auth::guard('user')->check()){
-            return Inertia::render('Auth/Register');
-        }
+        return Inertia::render('Auth/Register', [
+            'status' => $request->session()->get('status'),
+        ]);
     }
 }
