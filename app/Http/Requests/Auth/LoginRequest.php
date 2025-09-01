@@ -2,7 +2,12 @@
 
 namespace App\Http\Requests\Auth;
 
+use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
@@ -27,12 +32,50 @@ class LoginRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
+    public function authenticate()
     {
-        return [
-            'username_or_email.required' => 'Please enter your username or email address.',
-            'username_or_email.max' => 'Your username or email address must not exceed 255 characters.',
-            'password.required' => 'Please enter your password.',
-        ];
+        $this->ensureNotRateLimited();
+
+        $credentials = $this->only('username_or_email', 'password');
+
+        $fieldType = filter_var($credentials['username_or_email'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        if (!Auth::attempt([
+            $fieldType => $credentials['username_or_email'],
+            'password' => $credentials['password'],
+        ])) {
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'username_or_email' => trans('auth.failed'),
+            ]);
+        }
+
+        RateLimiter::clear($this->throttleKey());
+    }
+
+
+    public function ensureNotRateLimited()
+    {
+        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+            return;
+        }
+
+        event(new Lockout($this));
+
+        $seconds = RateLimiter::availableIn($this->throttleKey());
+
+
+        throw ValidationException::withMessages([
+            'username_or_email' => trans('auth.throttle', [
+                'seconds' => $seconds,
+                'minutes' => ceil($seconds / 60),
+            ])
+        ]);
+    }
+
+    public function throttleKey(): string
+    {
+        return Str::transliterate(Str::lower($this->string('email')) . '|' . $this->ip());
     }
 }
