@@ -164,7 +164,7 @@ async function submit() {
                             class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Username or
                             email</label>
                         <InputField id="username" type="text" label="Username"
-                            placeholder="yourname or name@example.com" v-model="username" />
+                            placeholder="john.doe@example.com" v-model="username" />
                     </div>
 
                     <div>
