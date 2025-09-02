@@ -147,11 +147,12 @@ defineProps({
                             <InputField id="password" name="password" v-model="password"
                                 :type="showPassword ? 'text' : 'password'" placeholder="••••••••" />
                             <button type="button" @click="toggleShow"
-                                class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm text-gray-500 dark:text-gray-300">
+                                class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm text-gray-500 dark:text-gray-300"
+                                v-if="errors.password">
                                 {{ showPassword ? 'Hide' : 'Show' }}
                             </button>
-                            <InputError :message="errors.password" class="mt-2" />
                         </div>
+                        <InputError :message="errors.password" class="mt-2" />
                     </div>
 
 
