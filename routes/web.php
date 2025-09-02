@@ -9,6 +9,10 @@ Route::get('/', function () {
     return Inertia::render('Index');
 });
 
+Route::get('/dashboard', function () {
+    return Inertia::render('User/DashboardUser');
+});
+
 Route::middleware('guest')->group(function () {
     Route::get('/sign-in', [AuthenticatedSessionController::class, 'create'])
         ->name('user.login');
