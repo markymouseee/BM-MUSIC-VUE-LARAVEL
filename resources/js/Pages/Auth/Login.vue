@@ -1,11 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import Logo from '@/assets/images/BM-logo.png'
 import { Head, Link, Form } from '@inertiajs/vue3'
-import InputField from '@/Components/InputField.vue'
-import PrimaryButton from '@/Components/PrimaryButton.vue'
-import SecondaryButton from '@/Components/SecondaryButton.vue'
-import InputError from '../../Components/InputError.vue'
+import { InputError, InputField } from '@/Components/inputs'
+import { PrimaryButton, SecondaryButton } from '@/Components/buttons'
+import { route } from 'ziggy-js'
 
 const showPassword = ref(false)
 const password = ref('')

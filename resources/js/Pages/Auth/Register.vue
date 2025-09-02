@@ -1,19 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import { Link, Head, router } from '@inertiajs/vue3';
 import Logo from '@/assets/images/BM-logo.png';
-import InputField from '@/Components/InputField.vue';
 import { ref } from 'vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-
-const model = ref({
-    fullname: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-});
-
-const goToSignIn = () => router.visit('/sign-in');
-
+import { InputField } from '@/Components/inputs';
+import { PrimaryButton } from '@/Components/buttons';
+import { route } from 'ziggy-js';
 
 </script>
 
@@ -127,21 +118,21 @@ const goToSignIn = () => router.visit('/sign-in');
                         <label for="fullname" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
                             Full Name
                         </label>
-                        <InputField id="fullname" type="text" placeholder="John Doe" v-model="model.fullname" />
+                        <InputField id="fullname" type="text" placeholder="John Doe"/>
                     </div>
 
                     <div>
                         <label for="email" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
                             Email
                         </label>
-                        <InputField id="email" type="email" placeholder="john.doe@example.com" v-model="model.email" />
+                        <InputField id="email" type="email" placeholder="john.doe@example.com"/>
                     </div>
 
                     <div>
                         <label for="password" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
                             Password
                         </label>
-                        <InputField id="password" type="password" placeholder="••••••••" v-model="model.password" />
+                        <InputField id="password" type="password" placeholder="••••••••" />
                     </div>
 
                     <div>
@@ -149,8 +140,7 @@ const goToSignIn = () => router.visit('/sign-in');
                             class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
                             Confirm Password
                         </label>
-                        <InputField id="confirm-password" type="password" placeholder="••••••••"
-                            v-model="model.confirmPassword" />
+                        <InputField id="confirm-password" type="password" placeholder="••••••••" />
                     </div>
 
                     <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
@@ -165,7 +155,7 @@ const goToSignIn = () => router.visit('/sign-in');
 
                     <div class="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
                         Already have an account?
-                        <Link @click="goToSignIn" class="text-blue-600 hover:underline dark:text-blue-400">
+                        <Link :href="route('user.login')" class="text-blue-600 hover:underline dark:text-blue-400">
                         Sign in
                         </Link>
                     </div>
