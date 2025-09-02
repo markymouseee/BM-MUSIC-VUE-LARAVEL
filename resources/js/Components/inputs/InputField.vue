@@ -17,7 +17,7 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
-const updateValue = (event: any) => {
+const updateValue = (event) => {
     emit("update:modelValue", event.target.value);
 };
 </script>
