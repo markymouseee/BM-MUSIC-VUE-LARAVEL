@@ -60,7 +60,7 @@ onMounted(() => {
                 <div class="flex md:order-2 space-x-3">
                     <button @click="goToSignIn"
                         class="text-gray-700 font-medium hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 hidden md:inline-block">
-                    Sign in
+                    Dashboard
                     </button>
 
                     <button @click="goToSignUp"
@@ -147,7 +147,7 @@ onMounted(() => {
                                     ? 'text-blue-600 dark:text-blue-400'
                                     : 'text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400'
                             ]">
-                            Sign in
+                           Dashboard
                             </Link>
                         </li>
                     </ul>
