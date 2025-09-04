@@ -22,7 +22,7 @@ Route::middleware('guest')->group(function () {
         ->name('user.register.store');
 });
 
-Route::prefix('user')->middleware('auth')->group(function () {
+Route::prefix('user')->middleware(['auth'])->group(function () {
     Route::get('/dashboard', fn() => Inertia::render('User/DashboardUser'))
         ->name('user.dashboard');
 });
