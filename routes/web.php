@@ -31,3 +31,4 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', fn() => Inertia::render('User/DashboardUser'))
         ->name('admin.dashboard');
 });
+
