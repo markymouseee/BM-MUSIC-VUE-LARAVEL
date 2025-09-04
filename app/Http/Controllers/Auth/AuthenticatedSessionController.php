@@ -8,10 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Http\RedirectResponse;
+use Inertia\Response;
 
 class AuthenticatedSessionController extends Controller
 {
-    public function create(Request $request)
+    public function create(Request $request): Response
     {
         return Inertia::render('Auth/Login', [
             'status' => $request->session()->get('status')
