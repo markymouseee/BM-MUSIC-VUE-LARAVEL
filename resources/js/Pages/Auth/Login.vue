@@ -131,11 +131,10 @@ const form = reactive({
                     <FloatingInput name="username_or_email" type="text" label="Username or email"
                         v-model="form.username" :error="!!errors.username_or_email"
                         :errorMessage="errors.username_or_email" @clearError="errors.username_or_email = ''" />
-                    <div class="relative">
-                        <FloatingInput name="password" type="password" id="password" label="Password"
-                            v-model="form.password" :error="!!errors.password" :errorMessage="errors.password"
-                            @clear-error="errors.password = ''" />
-                    </div>
+
+                    <FloatingInput name="password" type="password" id="password" label="Password"
+                        v-model="form.password" :error="!!errors.password" :errorMessage="errors.password"
+                        @clear-error="errors.password = ''" />
 
                     <div class="flex items-center justify-between">
                         <label class="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
