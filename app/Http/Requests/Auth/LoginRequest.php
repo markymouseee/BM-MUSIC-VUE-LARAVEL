@@ -5,6 +5,7 @@ namespace App\Http\Requests\Auth;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -32,18 +33,25 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    /**
+     *  Authenticate the user.
+     *
+     * @return void throws ValidationException if the user is not authenticated or is locked out
+     */
+
     public function authenticate(): void
     {
         $this->ensureNotRateLimited();
 
         $credentials = $this->only('username_or_email', 'password');
 
-        $fieldType = filter_var($credentials['username_or_email'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $fieldType = filter_var($credentials['username_or_email'], FILTER_VALIDATE_EMAIL)
+            ? 'email'
+            : 'username';
 
-        if (!Auth::attempt([
-            $fieldType => $credentials['username_or_email'],
-            'password' => $credentials['password'],
-        ])) {
+        $user = \App\Models\User::where($fieldType, $credentials['username_or_email'])->first();
+
+        if (!$user) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -51,10 +59,24 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        if (!Hash::check($credentials['password'], $user->password)) {
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'password' => 'Incorrect password, please try again.',
+            ]);
+        }
+
+        Auth::login($user);
+
         RateLimiter::clear($this->throttleKey());
     }
 
-
+    /**
+     * Summary of ensureNotRateLimited
+     *
+     * @return void
+     */
     public function ensureNotRateLimited(): void
     {
         if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
