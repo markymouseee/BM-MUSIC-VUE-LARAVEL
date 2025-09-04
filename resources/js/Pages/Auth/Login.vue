@@ -1,21 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import Logo from '@/assets/images/BM-logo.png'
 import { Head, Link, Form } from '@inertiajs/vue3'
-import { InputError, InputField } from '@/Components/inputs'
+import { InputError, InputField, FloatingInput } from '@/Components/inputs'
 import { PrimaryButton, SecondaryButton } from '@/Components/buttons'
 import { route } from 'ziggy-js'
-
-const showPassword = ref(false)
-const password = ref('')
-
-function toggleShow() {
-    showPassword.value = !showPassword.value
-}
 
 defineProps({
     status: String,
 })
+
+const form = reactive({
+    username: "",
+    password: ""
+});
 
 </script>
 
@@ -129,33 +127,15 @@ defineProps({
 
                 <Form method="post" :action="route('user.login.store')" :reset-on-success="['password']"
                     v-slot="{ errors, processing }" class="space-y-5">
-                    <div>
-                        <label for="username"
-                            class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Username or
-                            email</label>
-                        <InputField id="username" name="username_or_email" type="text" label="Username"
-                            placeholder="john.doe@example.com" />
 
-                        <InputError :message="errors.username_or_email" class="mt-2" />
+                    <FloatingInput name="username_or_email" type="text" label="Username or email"
+                        v-model="form.username" :error="!!errors.username_or_email"
+                        :errorMessage="errors.username_or_email" @clearError="errors.username_or_email = ''" />
+                    <div class="relative">
+                        <FloatingInput name="password" type="password" id="password" label="Password"
+                            v-model="form.password" :error="!!errors.password" :errorMessage="errors.password"
+                            @clear-error="errors.password = ''" />
                     </div>
-
-                    <div>
-                        <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                            Password
-                        </label>
-                        <div class="mt-2 relative">
-                            <InputField id="password" name="password" v-model="password"
-                                :type="showPassword ? 'text' : 'password'" placeholder="••••••••" />
-                            <button type="button" @click="toggleShow"
-                                class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm text-gray-500 dark:text-gray-300"
-                                v-if="errors.password">
-                                {{ showPassword ? 'Hide' : 'Show' }}
-                            </button>
-                        </div>
-                        <InputError :message="errors.password" class="mt-2" />
-                    </div>
-
-
 
                     <div class="flex items-center justify-between">
                         <label class="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
