@@ -56,6 +56,23 @@ class User extends Authenticatable
         $this->attributes['password'] = Hash::needsRehash($password) ? Hash::make($password) : $password;
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            if (empty($user->username)) {
+                $prefix = 'user_bm';
+                do {
+                    $number = random_int(10000, 99999);
+                    $username = $prefix . $number;
+                } while (self::where('username', $username)->exists());
+
+                $user->username = $username;
+            }
+        });
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === 'admin';
