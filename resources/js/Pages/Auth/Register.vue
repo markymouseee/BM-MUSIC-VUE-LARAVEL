@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { Link, Head, router } from '@inertiajs/vue3';
+import { Link, Head, Form } from '@inertiajs/vue3';
 import Logo from '@/assets/images/BM-logo.png';
-import { ref } from 'vue';
-import { InputField } from '@/Components/inputs';
+import { InputField, InputError } from '@/Components/inputs';
 import { PrimaryButton } from '@/Components/buttons';
 import { route } from 'ziggy-js';
+
 
 </script>
 
@@ -113,26 +113,32 @@ import { route } from 'ziggy-js';
                     </p>
                 </div>
 
-                <form class="space-y-6">
+                <Form :action="route('user.register.store')" method="post" v-slot="{errors, processing}"  :reset-on-success="['password']" class="space-y-6">
                     <div>
                         <label for="fullname" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
                             Full Name
                         </label>
-                        <InputField id="fullname" type="text" placeholder="John Doe"/>
+                        <InputField id="fullname" name="fullname" type="text" placeholder="John Doe"/>
+
+                         <InputError :message="errors.fullname" class="mt-2"/>
                     </div>
 
                     <div>
                         <label for="email" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
                             Email
                         </label>
-                        <InputField id="email" type="email" placeholder="john.doe@example.com"/>
+                        <InputField id="email" name="email" type="email" placeholder="john.doe@example.com"/>
+
+                        <InputError :message="errors.email" class="mt-2"/>
                     </div>
 
                     <div>
-                        <label for="password" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                        <label for="password"  name="password" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
                             Password
                         </label>
-                        <InputField id="password" type="password" placeholder="••••••••" />
+                        <InputField id="password" name="password" type="password" placeholder="••••••••" />
+
+                         <InputError :message="errors.password" class="mt-2"/>
                     </div>
 
                     <div>
@@ -140,7 +146,9 @@ import { route } from 'ziggy-js';
                             class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
                             Confirm Password
                         </label>
-                        <InputField id="confirm-password" type="password" placeholder="••••••••" />
+                        <InputField id="confirm-password" name="password_confirmation" type="password" placeholder="••••••••" />
+
+                         <InputError :message="errors.password_confirmation" class="mt-2"/>
                     </div>
 
                     <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
@@ -159,7 +167,7 @@ import { route } from 'ziggy-js';
                         Sign in
                         </Link>
                     </div>
-                </form>
+                </Form>
             </div>
         </div>
     </div>
