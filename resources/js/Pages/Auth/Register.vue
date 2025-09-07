@@ -1,10 +1,17 @@
 <script setup lang="ts">
 import { Link, Head, Form } from '@inertiajs/vue3';
 import Logo from '@/assets/images/BM-logo.png';
-import { InputField, InputError } from '@/Components/inputs';
+import { InputField } from '@/Components/inputs';
 import { PrimaryButton } from '@/Components/buttons';
 import { route } from 'ziggy-js';
 
+
+const form = ({
+    fullname: '',
+    email: '',
+    password: '',
+    password_confirmation: ''
+})
 
 </script>
 
@@ -113,43 +120,24 @@ import { route } from 'ziggy-js';
                     </p>
                 </div>
 
-                <Form :action="route('user.register.store')" method="post" v-slot="{errors, processing}"  :reset-on-success="['password']" class="space-y-6">
-                    <div>
-                        <label for="fullname" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-                            Full Name
-                        </label>
-                        <InputField id="fullname" name="fullname" type="text" placeholder="John Doe"/>
+                <Form :action="route('user.register.store')" method="post" v-slot="{ errors, processing }"
+                    :reset-on-success="['password']" class="space-y-6">
 
-                         <InputError :message="errors.fullname" class="mt-2"/>
-                    </div>
+                    <InputField type="text" name="fullname" id="fullname" label="Name" placeholder="John Doe"
+                        v-model="form.fullname" :error-message="errors.fullname" :error="!!errors.fullname"
+                        @clear-error="errors.fullname = ''" />
 
-                    <div>
-                        <label for="email" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-                            Email
-                        </label>
-                        <InputField id="email" name="email" type="email" placeholder="john.doe@example.com"/>
+                    <InputField type="email" name="email" id="email" label="Email addresss"
+                        placeholder="john@example.com" v-model="form.email" :error="!!errors.email"
+                        :error-message="errors.email" @clear-error="errors.email = ''" />
 
-                        <InputError :message="errors.email" class="mt-2"/>
-                    </div>
+                    <InputField type="password" name="password" id="password" label="Password" placeholder="•••••••••"
+                        v-model="form.password" :error="!!errors.password" :error-message="errors.password"
+                        @clear-error="errors.password = ''" />
 
-                    <div>
-                        <label for="password"  name="password" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-                            Password
-                        </label>
-                        <InputField id="password" name="password" type="password" placeholder="••••••••" />
-
-                         <InputError :message="errors.password" class="mt-2"/>
-                    </div>
-
-                    <div>
-                        <label for="confirm-password"
-                            class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-                            Confirm Password
-                        </label>
-                        <InputField id="confirm-password" name="password_confirmation" type="password" placeholder="••••••••" />
-
-                         <InputError :message="errors.password_confirmation" class="mt-2"/>
-                    </div>
+                    <InputField type="password" name="password_confirmation" id="password_confirmation" placeholder="•••••••••" label="Confirm Password"
+                        v-model="form.password_confirmation" :error="!!errors.password_confirmation" :error-message="errors.password_confirmation"
+                        @clear-error="errors.password_confirmation = ''"/>
 
                     <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
                         By continuing, you agree to our
