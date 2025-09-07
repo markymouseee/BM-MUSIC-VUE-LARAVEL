@@ -10,6 +10,12 @@ use Inertia\Inertia;
 
 class RegisteredUserController extends Controller
 {
+
+    /**
+     * Summary of create
+     * @param \Illuminate\Http\Request $request
+     * @return \Inertia\Response
+     */
     public function create(Request $request)
     {
         return Inertia::render('Auth/Register', [
@@ -17,6 +23,11 @@ class RegisteredUserController extends Controller
         ]);
     }
 
+    /**
+     * Summary of store
+     * @param \App\Http\Requests\Auth\RegistrationRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(RegistrationRequest $request)
     {
 

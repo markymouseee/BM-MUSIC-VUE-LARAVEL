@@ -12,6 +12,12 @@ use Inertia\Response;
 
 class AuthenticatedSessionController extends Controller
 {
+    /**
+     * Summary of create
+     * @param \Illuminate\Http\Request $request
+     * @return \Inertia\Response
+     */
+
     public function create(Request $request): Response
     {
         return Inertia::render('Auth/Login', [
@@ -19,6 +25,11 @@ class AuthenticatedSessionController extends Controller
         ]);
     }
 
+    /**
+     * Summary of store
+     * @param \App\Http\Requests\Auth\LoginRequest $request
+     * @return RedirectResponse
+     */
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
@@ -27,13 +38,19 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        if($user->isAdmin()){
-            return redirect()->intended(route('admin.dashboard'));
+        if ($user->isAdmin()) {
+            return redirect()->intended(route('admin.dashboard', absolute: false));
         }
 
-        return redirect()->intended(route('user.dashboard'));
+        return redirect()->intended(route('user.dashboard', absolute: false));
     }
 
+
+    /**
+     * Summary of destroy
+     * @param \Illuminate\Http\Request $request
+     * @return RedirectResponse
+     */
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
