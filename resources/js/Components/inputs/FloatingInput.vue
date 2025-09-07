@@ -83,6 +83,5 @@ const toggleShow = () => {
         <p v-if="props.error" :id="'error_help_' + props.id" class="mt-2 text-xs text-red-600 dark:text-red-400">
             {{ props.errorMessage }}
         </p>
-
     </div>
 </template>
