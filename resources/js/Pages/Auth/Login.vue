@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { reactive } from 'vue'
 import Logo from '@/assets/images/BM-logo.png'
 import { Head, Link, Form } from '@inertiajs/vue3'
-import { InputError, InputField, FloatingInput } from '@/Components/inputs'
+import { FloatingInput } from '@/Components/inputs'
 import { PrimaryButton, SecondaryButton } from '@/Components/buttons'
+import { AuthModal } from '@/Components/modals'
 import { route } from 'ziggy-js'
 
 defineProps({
@@ -141,8 +142,13 @@ const form = reactive({
                             <input type="checkbox" class="h-4 w-4 rounded border-gray-300 dark:bg-gray-700" />
                             Remember me
                         </label>
-                        <a href="#" class="text-sm text-blue-600 hover:underline dark:text-blue-600">Forgot
-                            password?</a>
+                        <button type="button" data-modal-target="forgot-password-modal"
+                            data-modal-toggle="forgot-password-modal"
+                            class="text-sm text-blue-600 hover:underline dark:text-blue-600">
+                            Forgot password?
+                        </button>
+
+
                     </div>
 
                     <div>
@@ -166,6 +172,8 @@ const form = reactive({
                     </div>
                 </Form>
 
+
+
                 <div
                     class="my-6 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-gray-300 after:mt-0.5 after:flex-1 after:border-t after:border-gray-300">
                     <p class="mx-4 mb-0 text-center font-semibold text-gray-500 dark:text-gray-300">or</p>
@@ -186,6 +194,16 @@ const form = reactive({
                 </div>
             </div>
         </div>
+
+        <AuthModal id="forgot-password-modal" title="Forgot Password">
+            <Form>
+                <FloatingInput type="email" label="Email address" name="email_address" />
+
+                <div class="mt-7">
+                    <PrimaryButton type="submit">Send reset link</PrimaryButton>
+                </div>
+            </Form>
+        </AuthModal>
     </div>
 </template>
 
