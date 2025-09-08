@@ -193,9 +193,8 @@ const form = reactive({
                 </div>
             </div>
         </div>
-
         <AuthModal id="forgot-password-modal" title="Forgot Password">
-            <Form>
+            <Form s method="post" :reset-on-success="['email']" v-slot="{ errors, processing }">
                 <FloatingInput type="email" label="Email address" name="email_address" />
 
                 <div class="mt-7">
