@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import Logo from '@/assets/images/BM-logo.png'
 import { Head, Link, Form } from '@inertiajs/vue3'
 import { FloatingInput } from '@/Components/inputs'
@@ -142,12 +142,11 @@ const form = reactive({
                             <input type="checkbox" class="h-4 w-4 rounded border-gray-300 dark:bg-gray-700" />
                             Remember me
                         </label>
-                        <button type="button" data-modal-target="forgot-password-modal"
-                            data-modal-toggle="forgot-password-modal"
+                        <button type="button" data-modal-toggle="forgot-password-modal"
+                            data-modal-target="forgot-password-modal"
                             class="text-sm text-blue-600 hover:underline dark:text-blue-600">
                             Forgot password?
                         </button>
-
 
                     </div>
 
