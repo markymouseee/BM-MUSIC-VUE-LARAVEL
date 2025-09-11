@@ -22,6 +22,10 @@ Route::middleware('guest')->group(function () {
         ->name('user.register.store');
 });
 
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->name('user.logout')
+    ->middleware(['auth']);
+
 Route::prefix('user')->middleware(['auth'])->group(function () {
     Route::get('/dashboard', fn() => Inertia::render('User/DashboardUser'))
         ->name('user.dashboard');
